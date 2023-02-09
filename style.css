@@ -29,7 +29,7 @@ body {
     font-weight: 400;
     color: rgb(49, 49, 49);
     line-height: 2;
-    background-color: #f0f0f0;
+    background-image: linear-gradient( to right top, #787b80, #82858d, #8e8e9a, #9c98a7, #aba1b2);
 }
 
 
@@ -286,7 +286,7 @@ h4 {
 .operations {
     max-width: 100rem;
     margin: 12rem auto 0 auto;
-    background-color: #fff;
+    background-color: #cde2db;
 }
 
 .operations__tab-container {
@@ -681,8 +681,7 @@ h4 {
 .cookie-message {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
+    justify-content: space-around;
     background-color: white;
     color: #bbb;
     font-size: 1.5rem;

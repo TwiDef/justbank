@@ -7,6 +7,12 @@ const modalWindow = document.querySelector('.modal-window');
 const overlay = document.querySelector('.overlay');
 const btnCloseModalWindow = document.querySelector('.btn--close-modal-window');
 const btnsOpenModalWindow = document.querySelectorAll('.btn--show-modal-window');
+const h1 = document.querySelector('h1');
+const message = document.createElement('div');
+const header = document.querySelector('.header');
+const navlogo = document.querySelector('.nav__logo');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
 const openModalWindow = function() {
     modalWindow.classList.remove('hidden');
@@ -20,9 +26,6 @@ const closeModalWindow = function() {
 
 btnsOpenModalWindow.forEach(btn => btn.addEventListener('click', openModalWindow));
 
-/* for (let i = 0; i < btnsOpenModalWindow.length; i++)
-    btnsOpenModalWindow[i].addEventListener('click', openModalWindow); */
-
 btnCloseModalWindow.addEventListener('click', closeModalWindow);
 overlay.addEventListener('click', closeModalWindow);
 
@@ -31,3 +34,117 @@ document.addEventListener('keydown', function(e) {
         closeModalWindow();
     }
 });
+
+///////////////////////////////////////
+
+message.classList.add('cookie-message');
+message.innerHTML = 'Используем куки для улучшения. <button class="btn btn--close-cookie">Ok</button>';
+header.append(message);
+
+document.querySelector('.btn--close-cookie').addEventListener('click', () => message.remove());
+
+///////////////////////////////////////
+
+message.style.backgroundColor = '#083c6d';
+message.style.width = '106%';
+message.style.height = parseFloat(getComputedStyle(message).height) + 10 + 'px';
+console.log(getComputedStyle(message).height);
+
+/* document.documentElement.style.setProperty('--color-first', 'yellow'); */
+
+// attributes
+
+navlogo.setAttribute('copyrigth', 'some');
+console.log(navlogo.dataset.v);
+
+///////////////////////////////////////
+
+btnScrollTo.addEventListener('click', (e) => {
+    const section1Coords = section1.getBoundingClientRect();
+    console.log(section1Coords);
+
+    /*  console.log(e.target.getBoundingClientRect());
+        console.log('current scroll', window.pageXOffset, window.pageYOffset);
+        console.log('width and height viewport', document.documentElement.clientWidth,
+            document.documentElement.clientHeight);
+    */
+
+    /*  window.scrollTo({
+        left: section1Coords.left + window.pageXOffset,
+        top: section1Coords.top + window.pageYOffset,
+        behavior: 'smooth'
+    });
+    */
+
+    section1.scrollIntoView({
+        behavior: 'smooth'
+    });
+});
+
+/* window.addEventListener('scroll', () => console.log(window.pageYOffset)); */
+
+// old method
+// h1.onclick = () => console.log('click');
+
+h1.addEventListener('mouseenter', (e) => {
+    console.log('hover on h1');
+}, { once: true });
+
+///////////////////////////////////////
+// event propagation
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const getRandomColor = () => `rgb(${getRandomIntInclusive(0, 255)},${getRandomIntInclusive(0, 255)},${getRandomIntInclusive(0, 255)})`;
+
+
+///////////////////////////////////////
+// smoth page navigation and delegation
+
+document.querySelector('.nav__links').addEventListener('click', function(e) {
+    e.preventDefault();
+    if (e.target.classList.contains('nav__link')) {
+
+        const href = e.target.getAttribute('href');
+        console.log(href);
+        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+    }
+});
+
+/* document.querySelectorAll('.nav__link').forEach((htmlElement) => {
+    htmlElement.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        console.log(href);
+        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+    });
+}); */
+
+
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+/* 
+document.querySelector('.nav__link').addEventListener('click', function(e) {
+    this.style.backgroundColor = getRandomColor();
+    console.log('link', e.target, e.currentTarget);
+    console.log(this === e.currentTarget);
+    // stop propagation
+    // e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function(e) {
+    this.style.backgroundColor = getRandomColor();
+    console.log('links', e.target, e.currentTarget);
+    console.log(this === e.currentTarget);
+});
+
+document.querySelector('.nav').addEventListener('click', function(e) {
+    this.style.backgroundColor = getRandomColor();
+    console.log('nav', e.target, e.currentTarget);
+    console.log(this === e.currentTarget);
+});
+ */
