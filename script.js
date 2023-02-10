@@ -108,12 +108,49 @@ const getRandomColor = () => `rgb(${getRandomIntInclusive(0, 255)},${getRandomIn
 document.querySelector('.nav__links').addEventListener('click', function(e) {
     e.preventDefault();
     if (e.target.classList.contains('nav__link')) {
-
         const href = e.target.getAttribute('href');
         console.log(href);
         document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
     }
 });
+
+///////////////////////////////////////
+// DOM traversing
+
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.children);
+console.log(h1.firstElementChild);
+
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+const h2 = document.querySelector('h2');
+
+console.log(h1.parentElement.children);
+
+///////////////////////////////////////
+// tabs
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabContents = document.querySelectorAll('.operations__content');
+
+tabContainer.addEventListener('click', function(e) {
+    const clikedButton = e.target.closest('.operations__tab');
+    if (!clikedButton) {
+        return;
+    }
+
+    // active tab
+    tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+    clikedButton.classList.add('operations__tab--active');
+
+    // active content
+    tabContents.forEach(content => content.classList.remove('operations__content--active'));
+    document.querySelector(`.operations__content--${clikedButton.dataset.tab}`).classList.add('operations__content--active');
+});
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
 /* document.querySelectorAll('.nav__link').forEach((htmlElement) => {
     htmlElement.addEventListener('click', function(e) {
@@ -124,9 +161,6 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
     });
 }); */
 
-
-
-/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 /* 
 document.querySelector('.nav__link').addEventListener('click', function(e) {
     this.style.backgroundColor = getRandomColor();
