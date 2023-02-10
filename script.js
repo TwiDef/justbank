@@ -13,6 +13,7 @@ const header = document.querySelector('.header');
 const navlogo = document.querySelector('.nav__logo');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
 
 const openModalWindow = function() {
     modalWindow.classList.remove('hidden');
@@ -149,6 +150,49 @@ tabContainer.addEventListener('click', function(e) {
     tabContents.forEach(content => content.classList.remove('operations__content--active'));
     document.querySelector(`.operations__content--${clikedButton.dataset.tab}`).classList.add('operations__content--active');
 });
+
+///////////////////////////////////////
+// fadeout
+
+const navLinksHoverAnimation = function(e) {
+    if (e.target.classList.contains('nav__link')) {
+        const linkOver = e.target;
+        const siblingLinks = linkOver.closest('.nav__links').querySelectorAll('.nav__link');
+        const logo = linkOver.closest('.nav').querySelector('img');
+        const logotext = linkOver.closest('.nav').querySelector('.nav__text');
+
+        siblingLinks.forEach(el => {
+            if (el !== linkOver) {
+                el.style.opacity = this;
+            }
+        });
+        logo.style.opacity = this;
+        logotext.style.opacity = this;
+    }
+};
+
+// work with arguments bind() / this
+nav.addEventListener('mouseover', navLinksHoverAnimation.bind(0.4));
+
+nav.addEventListener('mouseout', navLinksHoverAnimation.bind(1));
+
+///////////////////////////////////////
+// sticky nav
+
+const section1Coords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function(e) {
+    console.log(window.scrollY);
+
+    if (window.scrollY > section1Coords.top) {
+        nav.classList.add('sticky');
+    } else {
+        nav.classList.remove('sticky');
+    }
+
+});
+
+
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 

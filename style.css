@@ -29,9 +29,15 @@ body {
     font-weight: 400;
     color: rgb(49, 49, 49);
     line-height: 2;
-    background-image: linear-gradient( to right top, #787b80, #82858d, #8e8e9a, #9c98a7, #aba1b2);
+    background-image: linear-gradient(
+        to right top,
+        #787b80,
+        #82858d,
+        #8e8e9a,
+        #9c98a7,
+        #aba1b2
+    );
 }
-
 
 /* Основные элементы */
 
@@ -112,7 +118,6 @@ img {
     filter: blur(20px);
 }
 
-
 /* Панель навигации */
 
 .nav {
@@ -127,7 +132,7 @@ img {
 
 .nav.sticky {
     position: fixed;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(194, 194, 194, 0.95);
 }
 
 .nav__logo {
@@ -178,7 +183,6 @@ img {
     background-color: var(--color-first-darker);
     color: #333;
 }
-
 
 /* Header */
 
@@ -237,7 +241,6 @@ h4 {
     background-image: var(--gradient-first);
 }
 
-
 /* Услуги */
 
 .services {
@@ -279,7 +282,6 @@ h4 {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
-
 
 /* Операции */
 
@@ -387,7 +389,6 @@ h4 {
     fill: var(--color-third);
 }
 
-
 /* Слайдер */
 
 .slider {
@@ -409,7 +410,7 @@ h4 {
     transition: transform 1s;
 }
 
-.slide>img {
+.slide > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -469,7 +470,6 @@ h4 {
     background-color: #888;
     opacity: 1;
 }
-
 
 /* Отзывы */
 
@@ -531,7 +531,6 @@ h4 {
     margin-bottom: 4rem;
 }
 
-
 /* Регистрация */
 
 .section--sign-up {
@@ -555,7 +554,6 @@ h4 {
     font-size: 1.9rem;
     padding: 2rem 5rem;
 }
-
 
 /* Footer */
 
@@ -597,7 +595,6 @@ h4 {
 .footer__copyright .footer__link {
     font-size: 1.4rem;
 }
-
 
 /* Modal window */
 
@@ -674,7 +671,6 @@ h4 {
     visibility: hidden;
     opacity: 0;
 }
-
 
 /* Cookie message */
 
