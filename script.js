@@ -14,6 +14,9 @@ const navlogo = document.querySelector('.nav__logo');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 const nav = document.querySelector('.nav');
+const allSections = document.querySelectorAll('.section');
+const lazyImages = document.querySelectorAll('img[data-src]');
+
 
 const openModalWindow = function() {
     modalWindow.classList.remove('hidden');
@@ -227,7 +230,7 @@ headerObserver.observe(header);
 ///////////////////////////////////////
 // apearing section
 
-const allSections = document.querySelectorAll('.section');
+
 
 const apearingSection = function(entries, observer) {
     const entry = entries[0];
@@ -249,7 +252,29 @@ allSections.forEach(function(section) {
     section.classList.add('section--hidden');
 });
 
+///////////////////////////////////////
+// lazy loading
 
+const loadImages = function(entries, observer) {
+    const entry = entries[0];
+    /* console.log(entry); */
+
+    if (!entry.isIntersecting) {
+        return;
+    }
+
+    entry.target.src = entry.target.dataset.src;
+    entry.target.addEventListener('load', function() {
+        entry.target.classList.remove('lazy-img');
+    });
+    observer.unobserve(entry.target);
+};
+
+const lazyImagesObserver = new IntersectionObserver(loadImages, {
+    root: null,
+    threshold: 0.5,
+});
+lazyImages.forEach(image => lazyImagesObserver.observe(image));
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
