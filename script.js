@@ -249,7 +249,7 @@ const sectionObserver = new IntersectionObserver(apearingSection, {
 
 allSections.forEach(function(section) {
     sectionObserver.observe(section);
-    section.classList.add('section--hidden');
+    /* section.classList.add('section--hidden'); */
 });
 
 ///////////////////////////////////////
@@ -275,6 +275,46 @@ const lazyImagesObserver = new IntersectionObserver(loadImages, {
     threshold: 0.5,
 });
 lazyImages.forEach(image => lazyImagesObserver.observe(image));
+
+///////////////////////////////////////
+// slider
+
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+let currentSlide = 0;
+const slidesNumber = slides.length - 1;
+
+/* slider.style.transform = 'scale(0.4)';
+slider.style.overflow = 'visible';*/
+
+/* slides.forEach((slide, index) => slide.style.transform = `translateX(${index * 100}%)`); */
+
+const moveToSlided = function(slide) {
+    slides.forEach((s, index) => s.style.transform = `translateX(${(index - slide) * 100}%)`);
+};
+
+moveToSlided(0);
+
+btnRight.addEventListener('click', function() {
+    if (currentSlide === slidesNumber) {
+        currentSlide = 0;
+    } else {
+        currentSlide++;
+    }
+    moveToSlided(currentSlide);
+});
+
+btnLeft.addEventListener('click', function() {
+    if (currentSlide === 0) {
+        currentSlide = slidesNumber;
+    } else {
+        currentSlide--;
+    }
+    moveToSlided(currentSlide);
+});
+
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
