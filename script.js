@@ -285,6 +285,7 @@ const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
 let currentSlide = 0;
 const slidesNumber = slides.length - 1;
+const dotContainer = document.querySelector('.dots');
 
 /* slider.style.transform = 'scale(0.4)';
 slider.style.overflow = 'visible';*/
@@ -297,24 +298,61 @@ const moveToSlided = function(slide) {
 
 moveToSlided(0);
 
-btnRight.addEventListener('click', function() {
+const createDots = function() {
+    slides.forEach((slide, index) => {
+        dotContainer.insertAdjacentHTML('beforeend', `
+            <button class="dots__dot" data-slide="${index}"></button>
+        `);
+    });
+};
+
+createDots();
+
+const activateCurrentDot = function(slide) {
+    document.querySelectorAll('.dots__dot').forEach(dot => dot.classList.remove('dots__dot--active'));
+    document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
+};
+activateCurrentDot(0);
+
+// next slide
+const nextSlide = function() {
     if (currentSlide === slidesNumber) {
         currentSlide = 0;
     } else {
         currentSlide++;
     }
     moveToSlided(currentSlide);
-});
+    activateCurrentDot(currentSlide);
+};
 
-btnLeft.addEventListener('click', function() {
+// prev slide
+const prevSlide = function() {
     if (currentSlide === 0) {
         currentSlide = slidesNumber;
     } else {
         currentSlide--;
     }
     moveToSlided(currentSlide);
+    activateCurrentDot(currentSlide);
+};
+
+btnRight.addEventListener('click', nextSlide);
+
+btnLeft.addEventListener('click', prevSlide);
+
+document.addEventListener('keydown', function(e) {
+    /* console.log(e);*/
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
 });
 
+dotContainer.addEventListener('click', function(e) {
+    if (e.target.classList.contains('dots__dot')) {
+        const slide = e.target.dataset.slide;
+        moveToSlided(slide);
+        activateCurrentDot(slide);
+    }
+});
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
